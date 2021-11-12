@@ -44,18 +44,16 @@ k2
 #visualising clusters from initial model 
 fviz_cluster(k2, data = suicide_data_cleaned_scaled)
 
-###trying out different number of clusters 
+###trying out different number of cluster combinations
 k3 <- kmeans(suicide_data_cleaned_scaled, centers = 3, nstart = 25)
 k4 <- kmeans(suicide_data_cleaned_scaled, centers = 4, nstart = 25)
 k5 <- kmeans(suicide_data_cleaned_scaled, centers = 5, nstart = 25)
 
-# plots to compare
+#plotting different clustering configurations for comparison
 p1 <- fviz_cluster(k2, geom = "point", data = suicide_data_cleaned_scaled) + ggtitle("k = 2")
 p2 <- fviz_cluster(k3, geom = "point",  data = suicide_data_cleaned_scaled) + ggtitle("k = 3")
 p3 <- fviz_cluster(k4, geom = "point",  data = suicide_data_cleaned_scaled) + ggtitle("k = 4")
 p4 <- fviz_cluster(k5, geom = "point",  data = suicide_data_cleaned_scaled) + ggtitle("k = 5")
-
-#plotting different cluster configurations
 grid.arrange(p1, p2, p3, p4, nrow = 2)
 
 #utilising the elbow method to identify the optimum number of clusters, after inconclusive analysis 
@@ -71,7 +69,7 @@ print(final)
 #visualising results again
 fviz_cluster(final, data = suicide_data_cleaned_scaled)
 
-#producing descriptive statistics of cluster analysis 
+#producing descriptive statistics of clustering analysis - shows the mean for each variable in our scope of analysis, for each cluster
 suicide_data_cleaned %>%
   mutate(Cluster = final$cluster) %>%
   group_by(Cluster) %>%
